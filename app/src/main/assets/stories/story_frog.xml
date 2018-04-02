@@ -1,0 +1,10 @@
+<story>
+	<title>Title</title>
+	<author>Author's Name</author>
+	<image id="cover_image">frog1.jpg</image>
+	<description>Description of the story</description>>
+	<page> 
+		<image>Image used during this scene</image>
+		<text>This is the text used for this page</text>
+	</page>
+</story>
