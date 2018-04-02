@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -40,12 +42,20 @@ public class LibraryActivity extends AppCompatActivity {
                     Element element = doc.getDocumentElement();
                     element.normalize();
                     Node cover_image = doc.getElementById("cover_image");
+                    final String story_title = doc.getElementsByTagName("title").item(0).getTextContent();
                     //add to the screen as an ImageButton
                     String ex = "pictures/"+cover_image.getTextContent();
                     InputStream image_lookup = getAssets().open(ex);
                     Drawable d = Drawable.createFromStream(image_lookup, null);
                     ImageButton ib = new ImageButton(this);
                     ib.setImageDrawable(d);
+                    ib.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(LibraryActivity.this,  story_title,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
                     layout.addView(ib);
                     is.close();
                     image_lookup.close();
