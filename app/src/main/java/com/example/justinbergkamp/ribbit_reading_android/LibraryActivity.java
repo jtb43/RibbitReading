@@ -1,6 +1,7 @@
 package com.example.justinbergkamp.ribbit_reading_android;
 import com.example.justinbergkamp.ribbit_reading_android.R;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,7 @@ public class LibraryActivity extends AppCompatActivity {
             String [] list = getAssets().list("stories");
             System.out.println(list.length);
             if (list.length > 0) {
-                for (String file : list) {
+                for (final String file : list) {
                     String pls = "stories/"+file;
                     InputStream is = getAssets().open(pls);
                     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -52,8 +53,10 @@ public class LibraryActivity extends AppCompatActivity {
                     ib.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            //need to either go to a landing page or start a new story activity
                             Toast.makeText(LibraryActivity.this,  story_title,
-                                    Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_SHORT).show();
+                            goToStory(file);
                         }
                     });
                     layout.addView(ib);
@@ -74,6 +77,12 @@ public class LibraryActivity extends AppCompatActivity {
         return nodes.getNodeValue();
 
     }
+
+    public void goToStory(String f ){
+        Intent intent = new Intent(this, LandingActivity.class);
+        intent.putExtra("EXTRA_FILE_NAME", f);
+        startActivity(intent);
+    };
 
 
 }
