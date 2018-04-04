@@ -3,8 +3,49 @@
 	<author>Author's Name</author>
 	<image id="cover_image">frog1.jpg</image>
 	<description>Description of the story</description>>
+
 	<page> 
 		<image>Image used during this scene</image>
-		<text>This is the text used for this page</text>
+		<text>First Page</text>
+	</page>
+
+	<page>
+		<image>Image used during this scene</image>
+		<text>Second</text>
+	</page>
+
+	<page>
+		<image>Image used during this scene</image>
+		<text>Third frog page</text>
+	</page>
+
+	<page type="fork">
+		<image>Image used during this scene</image>
+		<text>there needs to be a choice on this page</text>
+		<choice>
+			<image>	</image>>
+			<page>
+				<image>Image used during this scene</image>
+				<text>woah</text>
+			</page>
+			<page>
+				<image>Image used during this scene</image>
+				<text>holy shit</text>
+			</page>
+		</choice>
+		<choice>
+			<image>	</image>>
+			<page>
+				<image>Image used during this scene</image>
+				<text>no way</text>
+			</page>
+		</choice>
+		<choice>
+			<image>	</image>>
+			<page>
+				<image>Image used during this scene</image>
+				<text>First Page</text>
+			</page>
+		</choice>
 	</page>
 </story>

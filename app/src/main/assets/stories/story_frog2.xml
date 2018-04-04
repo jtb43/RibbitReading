@@ -5,6 +5,18 @@
 	<description>Description of the story</description>>
 	<page> 
 		<image>Image used during this scene</image>
-		<text>This is the text used for this page</text>
+		<text>The first page</text>
+	</page>
+	<page>
+		<image>Image used during this scene</image>
+		<text>the second</text>
+	</page>
+	<page>
+		<image>Image used during this scene</image>
+		<text>yeehaw</text>
+	</page>
+	<page>
+		<image>Image used during this scene</image>
+		<text>four!</text>
 	</page>
 </story>
