@@ -1,0 +1,22 @@
+<story>
+	<title>Frog 2</title>
+	<author>Author's Name</author>
+	<image id="cover_image">frog2.jpg</image>
+	<description>Description of the story</description>>
+	<page> 
+		<image>Image used during this scene</image>
+		<text>The first page</text>
+	</page>
+	<page>
+		<image>Image used during this scene</image>
+		<text>the second</text>
+	</page>
+	<page>
+		<image>Image used during this scene</image>
+		<text>yeehaw</text>
+	</page>
+	<page>
+		<image>Image used during this scene</image>
+		<text>four!</text>
+	</page>
+</story>
