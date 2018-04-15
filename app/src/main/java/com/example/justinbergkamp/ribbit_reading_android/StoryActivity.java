@@ -1,5 +1,6 @@
 package com.example.justinbergkamp.ribbit_reading_android;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +53,13 @@ public class StoryActivity extends AppCompatActivity {
     }
 
     public void getContent(){
+        System.out.println("Number pages = "+pages.size());
+        System.out.println("Current pages = "+currentPage);
+
+        if(pages.size()==currentPage){
+           endOfStory();
+           return;
+       }
         Node n = (Node) pages.get(currentPage);
         TextView content = findViewById(R.id.story_content);
         ImageView background = findViewById(R.id.story_background);
@@ -112,6 +120,12 @@ public class StoryActivity extends AppCompatActivity {
         //add question
         //create buttons
 
+    }
+
+    private void endOfStory(){
+        //out of pages
+        Intent intent = new Intent(this, LibraryActivity.class);
+        startActivity(intent);
     }
 
     public void makeChoice(int i){
