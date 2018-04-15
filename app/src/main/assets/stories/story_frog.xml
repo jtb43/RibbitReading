@@ -5,46 +5,30 @@
 	<description>Description of the story</description>>
 
 	<page> 
-		<image>Image used during this scene</image>
-		<text>First Page</text>
+		<image>waterfall.jpg</image>
+		<text>Once upon a time, there was a pretty waterfall place.</text>
 	</page>
 
 	<page>
-		<image>Image used during this scene</image>
-		<text>Second</text>
-	</page>
+		<image>waterfall.jpg</image>
+		<text>It was super cool and James liked it a lot.</text>'
 
-	<page>
-		<image>Image used during this scene</image>
-		<text>Third frog page</text>
 	</page>
-
 	<page type="fork">
-		<image>Image used during this scene</image>
-		<text>there needs to be a choice on this page</text>
+		<text>One day, James meets an animal. Does James meet a frog or a dog?</text>
+		<image>waterfall.jpg</image>
 		<choice>
-			<image>	</image>>
+			<image>frog1.jpg</image>>
 			<page>
-				<image>Image used during this scene</image>
-				<text>woah</text>
-			</page>
-			<page>
-				<image>Image used during this scene</image>
-				<text>holy shit</text>
+				<image>waterfall.jpg</image>
+				<text>The frog says "Hello! Who are you? Ribbit!"</text>
 			</page>
 		</choice>
 		<choice>
-			<image>	</image>>
+			<image>frog2.jpg</image>>
 			<page>
-				<image>Image used during this scene</image>
-				<text>no way</text>
-			</page>
-		</choice>
-		<choice>
-			<image>	</image>>
-			<page>
-				<image>Image used during this scene</image>
-				<text>First Page</text>
+				<image>waterfall.jpg</image>
+				<text>The dog says "Hello! Who are you? Woof!"</text>
 			</page>
 		</choice>
 	</page>

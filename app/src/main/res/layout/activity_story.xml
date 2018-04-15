@@ -6,32 +6,84 @@
     android:layout_height="match_parent"
     tools:context="com.example.justinbergkamp.ribbit_reading_android.StoryActivity">
 
-    <TextView
-        android:id="@+id/story_content"
-        android:layout_width="333dp"
-        android:layout_height="195dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="casual"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="18sp"
+    <ImageView
+        android:id="@+id/story_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.233" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/frog_image" />
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/story_content"
+        android:layout_width="373dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="8dp"
+        android:background="#ffffff"
+        android:fontFamily="casual"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/story_background"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/story_background"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:layout_marginEnd="40dp"
-        android:onClick="nextPage"
-        android:text="Next"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:adjustViewBounds="false"
+        android:rotation="0"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="?android:attr/homeAsUpIndicator" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:adjustViewBounds="false"
+        android:onClick="nextPage"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="?android:attr/homeAsUpIndicator" />
+
+    <ImageButton
+        android:id="@+id/choice_two"
+        android:layout_width="82dp"
+        android:layout_height="74dp"
+        android:layout_marginEnd="144dp"
+
+        android:layout_marginTop="60dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
+
+    <ImageButton
+        android:id="@+id/choice_one"
+        android:layout_width="84dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="144dp"
+
+        android:layout_marginTop="60dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/star_big_off" />
+
 </android.support.constraint.ConstraintLayout>
