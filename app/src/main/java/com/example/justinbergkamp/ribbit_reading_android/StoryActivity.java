@@ -72,7 +72,8 @@ public class StoryActivity extends AppCompatActivity {
                     choices.add(children.item(x));
                 }
             }
-
+            ImageButton next = findViewById(R.id.imageButton3);
+            next.setVisibility(View.GONE);
             createChoices(n,content, background, choices);
 
             //initialize image buttons and question
@@ -132,6 +133,14 @@ public class StoryActivity extends AppCompatActivity {
         Element p = (Element) choices.get(i);
         loadPages(p);
         getContent();
+        ImageButton first = findViewById(R.id.choice_one);
+        ImageButton second = findViewById(R.id.choice_two);
+        first.setVisibility(View.GONE);
+        second.setVisibility(View.GONE);
+        ImageButton next = findViewById(R.id.imageButton3);
+        next.setVisibility(View.VISIBLE);
+
+
     }
     public void nextPage(View view){
       currentPage++;
