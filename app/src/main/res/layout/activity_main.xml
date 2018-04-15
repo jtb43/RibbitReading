@@ -8,40 +8,39 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="202dp"
-        android:layout_height="187dp"
+        android:layout_width="209dp"
+        android:layout_height="199dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/frog_image"
         android:onClick="accessLibrary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.557" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <ImageButton
         android:id="@+id/settingsButton"
-        android:layout_width="48dp"
-        android:layout_height="46dp"
+        android:layout_width="58dp"
+        android:layout_height="54dp"
         android:background="@drawable/gear"
         android:onClick="accessSettings"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.969" />
+        app:layout_constraintVertical_bias="0.959" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="303dp"
-        android:layout_height="83dp"
-        android:layout_marginTop="104dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:fontFamily="casual"
         android:text="@string/main_message"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

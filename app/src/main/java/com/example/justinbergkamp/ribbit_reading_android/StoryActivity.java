@@ -1,9 +1,13 @@
 package com.example.justinbergkamp.ribbit_reading_android;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Document;
@@ -17,6 +21,8 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import jp.wasabeef.blurry.Blurry;
 
 public class StoryActivity extends AppCompatActivity {
     List pages;
@@ -48,7 +54,7 @@ public class StoryActivity extends AppCompatActivity {
     public void getContent(){
         Node n = (Node) pages.get(currentPage);
         TextView content = findViewById(R.id.story_content);
-
+        ImageView background = findViewById(R.id.story_background);
         if(n.hasAttributes()){
             //this is a fork node
             choices = new ArrayList();
@@ -59,19 +65,60 @@ public class StoryActivity extends AppCompatActivity {
                 }
             }
 
-            Element p = (Element) choices.get(1);
-            loadPages(p);
-            getContent();
+            createChoices(n,content, background, choices);
+
             //initialize image buttons and question
             //set on click listeners
             //pass to choice method with an int repping the choice made
         }else{
             content.setText(getText(n));
+            background.setImageDrawable(getImage(n));
             //normal page node
             //display things normally
         };
     };
 
+
+    private void createChoices(Node n, TextView content, ImageView background, List choices){
+        content.setText(getText(n));
+        background.setImageDrawable(getImage(n));
+        Blurry.with(StoryActivity.this).radius(25)
+                .sampling(1)
+                .color(Color.argb(66, 0, 255, 255))
+                .async()
+                .capture(background)
+                .into((ImageView) background);
+
+        ImageButton first = findViewById(R.id.choice_one);
+        ImageButton second = findViewById(R.id.choice_two);
+        first.setImageDrawable(getImage((Node) choices.get(0)));
+        second.setImageDrawable(getImage((Node) choices.get(1)));
+        first.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeChoice(0);
+            }
+        });
+        second.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeChoice(1);
+            }
+        });
+        first.setVisibility(View.VISIBLE);
+        second.setVisibility(View.VISIBLE);
+        //instantiate buttons
+        //blur screen
+        //add question
+        //create buttons
+
+    }
+
+    public void makeChoice(int i){
+        Element p = (Element) choices.get(i);
+        loadPages(p);
+        getContent();
+    }
     public void nextPage(View view){
       currentPage++;
       getContent();
@@ -86,6 +133,28 @@ public class StoryActivity extends AppCompatActivity {
         }
         return "Error loading content :(";
     }
+
+    public Drawable getImage(Node n){
+        NodeList children = n.getChildNodes();
+        String picName = "";
+        for(int x = 0; x< children.getLength();x++){
+            if(children.item(x).getNodeName().equals("image")){
+                picName = children.item(x).getTextContent();
+                break;
+            }
+        }
+        String ex = "pictures/"+picName;
+        InputStream image_lookup = null;
+        try {
+             image_lookup = getAssets().open(ex);
+        }catch (Exception e) {
+                e.printStackTrace();
+            }
+        Drawable d = Drawable.createFromStream(image_lookup, null);
+        return d;
+    }
+
+
     public void loadPages(Element element){
         pages.clear();
         NodeList children = element.getChildNodes();
