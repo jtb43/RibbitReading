@@ -1,5 +1,6 @@
 package com.example.justinbergkamp.ribbit_reading_android;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +53,13 @@ public class StoryActivity extends AppCompatActivity {
     }
 
     public void getContent(){
+        System.out.println("Number pages = "+pages.size());
+        System.out.println("Current pages = "+currentPage);
+
+        if(pages.size()==currentPage){
+           endOfStory();
+           return;
+       }
         Node n = (Node) pages.get(currentPage);
         TextView content = findViewById(R.id.story_content);
         ImageView background = findViewById(R.id.story_background);
@@ -64,7 +72,8 @@ public class StoryActivity extends AppCompatActivity {
                     choices.add(children.item(x));
                 }
             }
-
+            ImageButton next = findViewById(R.id.imageButton3);
+            next.setVisibility(View.GONE);
             createChoices(n,content, background, choices);
 
             //initialize image buttons and question
@@ -114,10 +123,24 @@ public class StoryActivity extends AppCompatActivity {
 
     }
 
+    private void endOfStory(){
+        //out of pages
+        Intent intent = new Intent(this, LibraryActivity.class);
+        startActivity(intent);
+    }
+
     public void makeChoice(int i){
         Element p = (Element) choices.get(i);
         loadPages(p);
         getContent();
+        ImageButton first = findViewById(R.id.choice_one);
+        ImageButton second = findViewById(R.id.choice_two);
+        first.setVisibility(View.GONE);
+        second.setVisibility(View.GONE);
+        ImageButton next = findViewById(R.id.imageButton3);
+        next.setVisibility(View.VISIBLE);
+
+
     }
     public void nextPage(View view){
       currentPage++;
