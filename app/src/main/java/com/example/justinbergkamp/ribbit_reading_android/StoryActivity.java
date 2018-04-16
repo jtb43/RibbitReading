@@ -53,9 +53,6 @@ public class StoryActivity extends AppCompatActivity {
     }
 
     public void getContent(){
-        System.out.println("Number pages = "+pages.size());
-        System.out.println("Current pages = "+currentPage);
-
         if(pages.size()==currentPage){
            endOfStory();
            return;
@@ -125,6 +122,8 @@ public class StoryActivity extends AppCompatActivity {
 
     private void endOfStory(){
         //out of pages
+        pages.clear();
+        currentPage=0;
         Intent intent = new Intent(this, LibraryActivity.class);
         startActivity(intent);
     }

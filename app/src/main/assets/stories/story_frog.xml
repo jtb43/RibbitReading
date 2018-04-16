@@ -1,8 +1,8 @@
 <story>
-	<title>Frog 1</title>
+	<title>The Friendly Frog</title>
 	<author>Author's Name</author>
-	<image id="cover_image">frog1.jpg</image>
-	<description>Description of the story</description>>
+	<image id="cover_image">frog.png</image>
+	<description>Meet a frog by a sweet waterfall!</description>>
 
 	<page> 
 		<image>waterfall.jpg</image>
@@ -23,12 +23,28 @@
 				<image>waterfall.jpg</image>
 				<text>The frog says "Hello! Who are you? Ribbit!"</text>
 			</page>
+			<page>
+				<image>waterfall.jpg</image>
+				<text>Ribbit!</text>
+			</page>
+			<page>
+				<image>waterfall.jpg</image>
+				<text>Ribbit ribbit</text>
+			</page>
 		</choice>
 		<choice>
-			<image>frog2.jpg</image>>
+			<image>dog.png</image>>
 			<page>
 				<image>waterfall.jpg</image>
 				<text>The dog says "Hello! Who are you? Woof!"</text>
+			</page>
+			<page>
+				<image>waterfall.jpg</image>
+				<text>Woof Woof Woof. Woof</text>
+			</page>
+			<page>
+				<image>waterfall.jpg</image>
+				<text>Ruff</text>
 			</page>
 		</choice>
 	</page>
