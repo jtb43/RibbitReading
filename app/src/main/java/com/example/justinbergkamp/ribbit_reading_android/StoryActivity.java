@@ -29,11 +29,13 @@ public class StoryActivity extends AppCompatActivity {
     List pages;
     int currentPage;
     List choices;
+    String user_name = "Lily";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
         String file_name = getIntent().getStringExtra("EXTRA_FILE_NAME");
+        user_name = getIntent().getStringExtra("USER_NAME");
         pages = new ArrayList();
         currentPage = 0;
         Element element = null;
@@ -150,7 +152,11 @@ public class StoryActivity extends AppCompatActivity {
         NodeList children = n.getChildNodes();
         for(int x = 0; x< children.getLength();x++){
             if(children.item(x).getNodeName().equals("text")){
-                return children.item(x).getTextContent();
+                String s = children.item(x).getTextContent();
+                System.out.println("Justin- "+s);
+                String r = s.replaceAll("NAME", user_name);
+                System.out.println("Justin- "+r);
+                return r;
             }
         }
         return "Error loading content :(";

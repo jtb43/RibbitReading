@@ -11,11 +11,11 @@
 
 	<page>
 		<image>waterfall.jpg</image>
-		<text>It was super cool and James liked it a lot.</text>'
+		<text>It was super cool and NAME liked it a lot.</text>'
 
 	</page>
 	<page type="fork">
-		<text>One day, James meets an animal. Does James meet a frog or a dog?</text>
+		<text>One day, NAME meets an animal. Does NAME meet a frog or a dog?</text>
 		<image>waterfall.jpg</image>
 		<choice>
 			<image>frog1.jpg</image>>

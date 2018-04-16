@@ -82,8 +82,12 @@ public class LandingActivity extends AppCompatActivity {
         System.out.println("Attempting to access story");
         Intent intent = new Intent(this, StoryActivity.class);
         intent.putExtra("EXTRA_FILE_NAME", f);
+        intent.putExtra("USER_NAME", "Justin");
         startActivity(intent);
     };
 
+    public void askName(){
+        
+    }
 
 }
