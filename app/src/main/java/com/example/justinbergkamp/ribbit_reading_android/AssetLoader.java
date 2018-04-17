@@ -1,6 +1,7 @@
 package com.example.justinbergkamp.ribbit_reading_android;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.drawable.Drawable;
 
 import org.w3c.dom.Document;
@@ -42,11 +43,21 @@ public class AssetLoader {
     public Drawable getImage(String fileName){
         InputStream image_lookup = null;
         try {
-            image_lookup = context.getAssets().open(fileName);
+            image_lookup = context.getAssets().open("pictures/"+fileName);
         }catch (Exception e) {
             e.printStackTrace();
         }
         Drawable d = Drawable.createFromStream(image_lookup, null);
         return d;
+    }
+
+    public AssetFileDescriptor getAudio(String fileName){
+        AssetFileDescriptor afd = null;
+        try {
+         afd = context.getAssets().openFd("audio/"+fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return afd;
     }
 }

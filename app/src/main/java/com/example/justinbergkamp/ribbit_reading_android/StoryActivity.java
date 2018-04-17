@@ -32,7 +32,7 @@ public class StoryActivity extends AppCompatActivity {
     int currentPage;
     List choices;
     String user_name = "Lily";
-    ArrayList sounds;
+    ArrayList<Node> sounds;
     AssetLoader al;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,8 @@ public class StoryActivity extends AppCompatActivity {
             //remove the 'next' button
             content.setText(getText(n));
             background.setImageDrawable(getImage(n));
+            getSounds(n);
+            
             ImageButton next = findViewById(R.id.imageButton3);
             next.setVisibility(View.GONE);
             choices = new ArrayList();
@@ -100,7 +102,6 @@ public class StoryActivity extends AppCompatActivity {
                 .async()
                 .capture(background)
                 .into((ImageView) background);
-
         ImageButton first = findViewById(R.id.choice_one);
         ImageButton second = findViewById(R.id.choice_two);
         makeChoiceButton(first, 0, choices);
@@ -158,39 +159,29 @@ public class StoryActivity extends AppCompatActivity {
         ArrayList<Node> pictures = new ArrayList();
         nestedLoop(n,pictures,"image");
         String picName = pictures.get(0).getTextContent();
-        return al.getImage("pictures/"+picName);
+        return al.getImage(picName);
     }
 
 
     public void getSounds(Node n){
-        NodeList children = n.getChildNodes();
         sounds.clear();
-        for(int x = 0; x< children.getLength();x++){
-            if(children.item(x).getNodeName().equals("audio")){
-                sounds.add(children.item(x).getTextContent());
-                MediaPlayer player = new MediaPlayer();
-                playSounds(player,children.item(x).getTextContent() );
-            }
+        nestedLoop(n, sounds, "audio");
+        for(int x = 0; x< sounds.size();x++) {
+            playSounds(sounds.get(x).getTextContent());
         }
     }
 
-    public void playSounds(MediaPlayer m, String fileName) {
+    public void playSounds(String fileName) {
+        MediaPlayer mediaPlayer = new MediaPlayer();
         try {
-            if (m.isPlaying()) {
-                m.stop();
-                m.release();
-                m = new MediaPlayer();
-            }
-            String s = "audio/"+fileName;
-            AssetFileDescriptor descriptor = getAssets().openFd(s);
-            m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
-            descriptor.close();
-            m.prepare();
-            m.setVolume(1f, 1f);
-            //m.setLooping(true);
-            m.start();
-        } catch (Exception e) {
+            AssetFileDescriptor afd = StoryActivity.this.getAssets().openFd("audio/"+fileName);
+            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            afd.close();
+            mediaPlayer.prepare();
+        } catch (final Exception e) {
             e.printStackTrace();
         }
+        mediaPlayer.start();
+
     }
 }
