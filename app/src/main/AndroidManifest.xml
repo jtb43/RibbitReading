@@ -43,8 +43,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.justinbergkamp.ribbit_reading_android.LibraryActivity" />
         </activity>
-        <activity android:name=".StoryActivity"
-            android:screenOrientation="landscape">
+        <activity
+            android:name=".StoryActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".StoryCreatorActivity"
+            android:label="@string/title_activity_story_creator"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.justinbergkamp.ribbit_reading_android.MainActivity" />
         </activity>
     </application>
 
