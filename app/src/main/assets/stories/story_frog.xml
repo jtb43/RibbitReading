@@ -1,34 +1,61 @@
 <story>
-	<title>Frog 1</title>
+	<title>The Friendly Frog</title>
 	<author>Author's Name</author>
-	<image id="cover_image">frog1.jpg</image>
-	<description>Description of the story</description>>
+	<image id="cover_image">frog.png</image>
+	<description>Meet a frog by a sweet waterfall!</description>>
 
 	<page> 
 		<image>waterfall.jpg</image>
 		<text>Once upon a time, there was a pretty waterfall place.</text>
+		<audio>water.mp3</audio>
 	</page>
 
 	<page>
 		<image>waterfall.jpg</image>
-		<text>It was super cool and James liked it a lot.</text>'
+		<text>It was super cool and NAME liked it a lot.</text>'
+		<audio>water.mp3</audio>
 
 	</page>
 	<page type="fork">
-		<text>One day, James meets an animal. Does James meet a frog or a dog?</text>
+		<text>One day, NAME meets an animal. Does NAME meet a frog or a dog?</text>
 		<image>waterfall.jpg</image>
+		<audio>water.mp3</audio>
+
 		<choice>
-			<image>frog1.jpg</image>>
+			<image>frog3.png</image>>
 			<page>
-				<image>waterfall.jpg</image>
-				<text>The frog says "Hello! Who are you? Ribbit!"</text>
+				<image>waterfall-frog1.jpg</image>
+				<text>The frog says "Hello! My name is Lily. Who are you? Ribbit!"</text>
+				<audio>water.mp3</audio>
+			</page>
+			<page>
+				<image>waterfall-frog1.jpg</image>
+				<text>"Oh hello NAME" says Lily. Isn't this waterfall nice? </text>
+			</page>
+			<page>
+				<image>waterfall-frog1.jpg</image>
+				<text>Ribbit ribbit</text>
 			</page>
 		</choice>
 		<choice>
-			<image>frog2.jpg</image>>
+			<image>dog.png</image>>
 			<page>
-				<image>waterfall.jpg</image>
-				<text>The dog says "Hello! Who are you? Woof!"</text>
+				<image>waterfall-dog1.jpg</image>
+				<text>The dog says "Hello! I'm Spot. Who are you? Woof!"</text>
+				<audio>water.mp3</audio>
+				<audio>woof-loudest.mp3</audio>
+
+			</page>
+			<page>
+				<image>waterfall-dog1.jpg</image>
+				<text>Woof Woof. "Hey, NAME, have you seen my ball?" says Spot.</text>
+				<audio>water.mp3</audio>
+				<audio>woof-loudest.mp3</audio>
+
+			</page>
+			<page>
+				<image>waterfall-dog1.jpg</image>
+				<text>Ruff</text>
 			</page>
 		</choice>
 	</page>

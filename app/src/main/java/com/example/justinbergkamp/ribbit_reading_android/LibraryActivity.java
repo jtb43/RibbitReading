@@ -2,12 +2,15 @@ package com.example.justinbergkamp.ribbit_reading_android;
 import com.example.justinbergkamp.ribbit_reading_android.R;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,14 @@ public class LibraryActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         LinearLayout layout = findViewById(R.id.activity_library);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LibraryActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         try {
             String [] list = getAssets().list("stories");
@@ -50,6 +61,7 @@ public class LibraryActivity extends AppCompatActivity {
                     Drawable d = Drawable.createFromStream(image_lookup, null);
                     ImageButton ib = new ImageButton(this);
                     ib.setImageDrawable(d);
+                    //ib.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     ib.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

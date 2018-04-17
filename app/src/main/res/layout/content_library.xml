@@ -5,7 +5,7 @@ android:id="@+id/activity_library"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
-android:background="#b99a8e"
+android:background="#fcfad1"
 tools:context="com.example.justinbergkamp.ribbit_reading_android.LibraryActivity">
 
 <TextView
