@@ -33,6 +33,7 @@ public class StoryActivity extends AppCompatActivity {
     List choices;
     String user_name = "Lily";
     ArrayList sounds;
+    AssetLoader al;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +42,12 @@ public class StoryActivity extends AppCompatActivity {
         user_name = getIntent().getStringExtra("USER_NAME");
         pages = new ArrayList();
         currentPage = 0;
+
         sounds = new ArrayList();
-        AssetLoader al = new AssetLoader(StoryActivity.this);
+
+        al = new AssetLoader(StoryActivity.this);
         Element element = al.getDocElement(file_name);
         loadPages(element);
-        getContent();
     }
 
     public void loadPages(Element element){
@@ -53,6 +55,7 @@ public class StoryActivity extends AppCompatActivity {
         pages.clear();
         nestedLoop(element, pages, "page");
         currentPage=0;
+        getContent();
     }
 
     public void getContent(){
@@ -62,7 +65,9 @@ public class StoryActivity extends AppCompatActivity {
 
         if(n.hasAttributes()){
             //this is a fork node
-            //remove the next button
+            //remove the 'next' button
+            content.setText(getText(n));
+            background.setImageDrawable(getImage(n));
             ImageButton next = findViewById(R.id.imageButton3);
             next.setVisibility(View.GONE);
             choices = new ArrayList();
@@ -78,6 +83,7 @@ public class StoryActivity extends AppCompatActivity {
     }
 
     private void nestedLoop(Node n, List list, String type ){
+        //find all children of a given type
         NodeList children = n.getChildNodes();
         for (int x = 0; x<children.getLength();x++){
             if (children.item(x).getNodeName().equals(type)){
@@ -87,8 +93,7 @@ public class StoryActivity extends AppCompatActivity {
     }
 
     private void createChoices(Node n, TextView content, ImageView background, List choices){
-        content.setText(getText(n));
-        background.setImageDrawable(getImage(n));
+        //blurs background image
         Blurry.with(StoryActivity.this).radius(25)
                 .sampling(1)
                 .color(Color.argb(66, 0, 255, 255))
@@ -98,22 +103,31 @@ public class StoryActivity extends AppCompatActivity {
 
         ImageButton first = findViewById(R.id.choice_one);
         ImageButton second = findViewById(R.id.choice_two);
-        first.setImageDrawable(getImage((Node) choices.get(0)));
-        second.setImageDrawable(getImage((Node) choices.get(1)));
-        first.setOnClickListener(new View.OnClickListener() {
+        makeChoiceButton(first, 0, choices);
+        makeChoiceButton(second, 1, choices);
+    }
+
+    private void makeChoiceButton(ImageButton ib, final int choiceNum, List choices){
+        ib.setImageDrawable(getImage((Node) choices.get(choiceNum)));
+        ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeChoice(0);
+                makeChoice(choiceNum);
             }
         });
-        second.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                makeChoice(1);
-            }
-        });
-        first.setVisibility(View.VISIBLE);
-        second.setVisibility(View.VISIBLE);
+        ib.setVisibility(View.VISIBLE);
+    }
+
+    public void makeChoice(int i){
+        Element p = (Element) choices.get(i);
+        //the new list of pages will be those under the chosen option
+        loadPages(p);
+        ImageButton first = findViewById(R.id.choice_one);
+        ImageButton second = findViewById(R.id.choice_two);
+        first.setVisibility(View.GONE);
+        second.setVisibility(View.GONE);
+        ImageButton next = findViewById(R.id.imageButton3);
+        next.setVisibility(View.VISIBLE);
     }
 
     private void endOfStory(){
@@ -123,19 +137,7 @@ public class StoryActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void makeChoice(int i){
-        Element p = (Element) choices.get(i);
-        loadPages(p);
-        getContent();
-        ImageButton first = findViewById(R.id.choice_one);
-        ImageButton second = findViewById(R.id.choice_two);
-        first.setVisibility(View.GONE);
-        second.setVisibility(View.GONE);
-        ImageButton next = findViewById(R.id.imageButton3);
-        next.setVisibility(View.VISIBLE);
 
-
-    }
     public void nextPage(View view){
       currentPage++;
         if(pages.size()==currentPage){
@@ -146,37 +148,17 @@ public class StoryActivity extends AppCompatActivity {
     }
 
     public String getText(Node n){
-        NodeList children = n.getChildNodes();
-        for(int x = 0; x< children.getLength();x++){
-            if(children.item(x).getNodeName().equals("text")){
-                String s = children.item(x).getTextContent();
-                System.out.println("Justin- "+s);
-                String r = s.replaceAll("NAME", user_name);
-                System.out.println("Justin- "+r);
-                return r;
-            }
-        }
-        return "Error loading content :(";
+        List<Node> text = new ArrayList();
+        nestedLoop(n, text, "text");
+        String sentence = text.get(0).getTextContent().replaceAll("NAME", user_name);
+        return sentence;
     }
 
     public Drawable getImage(Node n){
-        NodeList children = n.getChildNodes();
-        String picName = "";
-        for(int x = 0; x< children.getLength();x++){
-            if(children.item(x).getNodeName().equals("image")){
-                picName = children.item(x).getTextContent();
-                break;
-            }
-        }
-        String ex = "pictures/"+picName;
-        InputStream image_lookup = null;
-        try {
-             image_lookup = getAssets().open(ex);
-        }catch (Exception e) {
-                e.printStackTrace();
-            }
-        Drawable d = Drawable.createFromStream(image_lookup, null);
-        return d;
+        ArrayList<Node> pictures = new ArrayList();
+        nestedLoop(n,pictures,"image");
+        String picName = pictures.get(0).getTextContent();
+        return al.getImage("pictures/"+picName);
     }
 
 

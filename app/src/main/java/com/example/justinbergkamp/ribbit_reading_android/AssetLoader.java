@@ -1,6 +1,7 @@
 package com.example.justinbergkamp.ribbit_reading_android;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,10 +23,10 @@ public class AssetLoader {
         context = c;
     }
 
-    public Element getDocElement(String file_name){
+    public Element getDocElement(String fileName){
         Element element = null;
         try {
-            String pls = "stories/" + file_name;
+            String pls = "stories/" + fileName;
             InputStream is = context.getAssets().open(pls);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -36,5 +37,16 @@ public class AssetLoader {
             e.printStackTrace();
         }
         return element;
+    }
+
+    public Drawable getImage(String fileName){
+        InputStream image_lookup = null;
+        try {
+            image_lookup = context.getAssets().open(fileName);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        Drawable d = Drawable.createFromStream(image_lookup, null);
+        return d;
     }
 }
