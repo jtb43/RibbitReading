@@ -1,8 +1,10 @@
 package com.example.justinbergkamp.ribbit_reading_android;
 
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +32,7 @@ public class StoryActivity extends AppCompatActivity {
     int currentPage;
     List choices;
     String user_name = "Lily";
+    static MediaPlayer m ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,7 @@ public class StoryActivity extends AppCompatActivity {
         pages = new ArrayList();
         currentPage = 0;
         Element element = null;
+        m = new MediaPlayer();
         try {
             String pls = "stories/" + file_name;
             InputStream is = getAssets().open(pls);
@@ -55,6 +59,7 @@ public class StoryActivity extends AppCompatActivity {
     }
 
     public void getContent(){
+        playSounds();
         if(pages.size()==currentPage){
            endOfStory();
            return;
@@ -193,5 +198,26 @@ public class StoryActivity extends AppCompatActivity {
             }
         }
         currentPage=0;
+    }
+
+    public void playSounds() {
+        try {
+            if (m.isPlaying()) {
+                m.stop();
+                m.release();
+                m = new MediaPlayer();
+            }
+
+            AssetFileDescriptor descriptor = getAssets().openFd("audio/water.mp3");
+            m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
+            descriptor.close();
+
+            m.prepare();
+            m.setVolume(1f, 1f);
+            m.setLooping(true);
+            m.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
