@@ -32,7 +32,7 @@ public class StoryActivity extends AppCompatActivity {
     int currentPage;
     List choices;
     String user_name = "Lily";
-    static MediaPlayer m ;
+    ArrayList sounds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,56 +41,50 @@ public class StoryActivity extends AppCompatActivity {
         user_name = getIntent().getStringExtra("USER_NAME");
         pages = new ArrayList();
         currentPage = 0;
-        Element element = null;
-        m = new MediaPlayer();
-        try {
-            String pls = "stories/" + file_name;
-            InputStream is = getAssets().open(pls);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(is);
-            element = doc.getDocumentElement();
-            element.normalize();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        sounds = new ArrayList();
+        AssetLoader al = new AssetLoader(StoryActivity.this);
+        Element element = al.getDocElement(file_name);
         loadPages(element);
         getContent();
     }
 
+    public void loadPages(Element element){
+        //This method finds all pages in the document and adds them to an arraylist named pages
+        pages.clear();
+        nestedLoop(element, pages, "page");
+        currentPage=0;
+    }
+
     public void getContent(){
-        playSounds();
-        if(pages.size()==currentPage){
-           endOfStory();
-           return;
-       }
         Node n = (Node) pages.get(currentPage);
         TextView content = findViewById(R.id.story_content);
         ImageView background = findViewById(R.id.story_background);
+
         if(n.hasAttributes()){
             //this is a fork node
-            choices = new ArrayList();
-            NodeList children = n.getChildNodes();
-            for (int x = 0; x<children.getLength();x++){
-                if (children.item(x).getNodeName().equals("choice")){
-                    choices.add(children.item(x));
-                }
-            }
+            //remove the next button
             ImageButton next = findViewById(R.id.imageButton3);
             next.setVisibility(View.GONE);
+            choices = new ArrayList();
+            nestedLoop(n,choices,"choice");
             createChoices(n,content, background, choices);
-
-            //initialize image buttons and question
-            //set on click listeners
-            //pass to choice method with an int repping the choice made
         }else{
+            //it's just a normal page
+            //Add text, image, and sounds
             content.setText(getText(n));
             background.setImageDrawable(getImage(n));
-            //normal page node
-            //display things normally
-        };
-    };
+            getSounds(n);
+        }
+    }
 
+    private void nestedLoop(Node n, List list, String type ){
+        NodeList children = n.getChildNodes();
+        for (int x = 0; x<children.getLength();x++){
+            if (children.item(x).getNodeName().equals(type)){
+                list.add(children.item(x));
+            }
+        }
+    }
 
     private void createChoices(Node n, TextView content, ImageView background, List choices){
         content.setText(getText(n));
@@ -120,15 +114,9 @@ public class StoryActivity extends AppCompatActivity {
         });
         first.setVisibility(View.VISIBLE);
         second.setVisibility(View.VISIBLE);
-        //instantiate buttons
-        //blur screen
-        //add question
-        //create buttons
-
     }
 
     private void endOfStory(){
-        //out of pages
         pages.clear();
         currentPage=0;
         Intent intent = new Intent(this, LibraryActivity.class);
@@ -150,8 +138,12 @@ public class StoryActivity extends AppCompatActivity {
     }
     public void nextPage(View view){
       currentPage++;
+        if(pages.size()==currentPage){
+            endOfStory();
+            return;
+        }
       getContent();
-    };
+    }
 
     public String getText(Node n){
         NodeList children = n.getChildNodes();
@@ -188,33 +180,32 @@ public class StoryActivity extends AppCompatActivity {
     }
 
 
-    public void loadPages(Element element){
-        pages.clear();
-        NodeList children = element.getChildNodes();
-        for (int x = 0; x<children.getLength();x++){
-            if (children.item(x).getNodeName().equals("page")){
-                //this is a page node
-                pages.add(children.item(x));
+    public void getSounds(Node n){
+        NodeList children = n.getChildNodes();
+        sounds.clear();
+        for(int x = 0; x< children.getLength();x++){
+            if(children.item(x).getNodeName().equals("audio")){
+                sounds.add(children.item(x).getTextContent());
+                MediaPlayer player = new MediaPlayer();
+                playSounds(player,children.item(x).getTextContent() );
             }
         }
-        currentPage=0;
     }
 
-    public void playSounds() {
+    public void playSounds(MediaPlayer m, String fileName) {
         try {
             if (m.isPlaying()) {
                 m.stop();
                 m.release();
                 m = new MediaPlayer();
             }
-
-            AssetFileDescriptor descriptor = getAssets().openFd("audio/water.mp3");
+            String s = "audio/"+fileName;
+            AssetFileDescriptor descriptor = getAssets().openFd(s);
             m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
             descriptor.close();
-
             m.prepare();
             m.setVolume(1f, 1f);
-            m.setLooping(true);
+            //m.setLooping(true);
             m.start();
         } catch (Exception e) {
             e.printStackTrace();

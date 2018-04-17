@@ -7,6 +7,7 @@
 	<page> 
 		<image>waterfall.jpg</image>
 		<text>Once upon a time, there was a pretty waterfall place.</text>
+		<audio>water.mp3</audio>>
 	</page>
 
 	<page>
@@ -18,32 +19,32 @@
 		<text>One day, NAME meets an animal. Does NAME meet a frog or a dog?</text>
 		<image>waterfall.jpg</image>
 		<choice>
-			<image>frog1.jpg</image>>
+			<image>frog3.png</image>>
 			<page>
-				<image>waterfall.jpg</image>
-				<text>The frog says "Hello! Who are you? Ribbit!"</text>
+				<image>waterfall-frog1.jpg</image>
+				<text>The frog says "Hello! My name is Lily. Who are you? Ribbit!"</text>
 			</page>
 			<page>
-				<image>waterfall.jpg</image>
-				<text>Ribbit!</text>
+				<image>waterfall-frog1.jpg</image>
+				<text>"Oh hello NAME" says Lily. Isn't this waterfall nice? </text>
 			</page>
 			<page>
-				<image>waterfall.jpg</image>
+				<image>waterfall-frog1.jpg</image>
 				<text>Ribbit ribbit</text>
 			</page>
 		</choice>
 		<choice>
 			<image>dog.png</image>>
 			<page>
-				<image>waterfall.jpg</image>
-				<text>The dog says "Hello! Who are you? Woof!"</text>
+				<image>waterfall-dog1.jpg</image>
+				<text>The dog says "Hello! I'm Spot. Who are you? Woof!"</text>
 			</page>
 			<page>
-				<image>waterfall.jpg</image>
-				<text>Woof Woof Woof. Woof</text>
+				<image>waterfall-dog1.jpg</image>
+				<text>Woof Woof. "Hey, NAME, have you seen my ball?" says Spot.</text>
 			</page>
 			<page>
-				<image>waterfall.jpg</image>
+				<image>waterfall-dog1.jpg</image>
 				<text>Ruff</text>
 			</page>
 		</choice>
