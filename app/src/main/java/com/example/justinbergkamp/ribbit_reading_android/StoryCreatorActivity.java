@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Xml;
 import android.view.View;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -15,13 +16,21 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
 
 public class StoryCreatorActivity extends AppCompatActivity {
-    String story_title;
-    String story_description;
-    String story_cover_image;
+    String story_title = "title ";
+    String story_description= "desp ";
+    String story_cover_image = " image";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +42,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
     }
 
 
-    public  void attempt() {
-
+    public void attempt(View view) {
         try {
             DocumentBuilderFactory dbFactory =
                     DocumentBuilderFactory.newInstance();
@@ -66,12 +74,17 @@ public class StoryCreatorActivity extends AppCompatActivity {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\cars.xml"));
+            File story = new File(getDir("newStory",MODE_PRIVATE),"story.xml");
+            System.out.println("HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            StreamResult result = new StreamResult(story);
             transformer.transform(source, result);
+            System.out.println("HERE AGAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             // Output to console for testing
             StreamResult consoleResult = new StreamResult(System.out);
             transformer.transform(source, consoleResult);
+            System.out.println("HERE THE THIRD TIME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,10 +95,71 @@ public class StoryCreatorActivity extends AppCompatActivity {
         String d = f+"_folder";
         File directory = StoryCreatorActivity.this.getDir(d, MODE_PRIVATE);
         File file = new File(directory, f);
+        File fl = new File(getDir(d,MODE_PRIVATE),f);
 
     }
 
-    public void test(){
+    public void test(View view) {
+        try {
+            System.out.println("Justin - In the test function");
+            FileInputStream fis = StoryCreatorActivity.this.openFileInput(addFileTest());
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            System.out.println(sb);
+
+            System.out.println("K");
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void addXMLTest(){
+        String filename = "file.txt";
+
+        FileOutputStream fos = null;
+        try {
+            fos = openFileOutput(filename, StoryCreatorActivity.this.MODE_APPEND);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+        XmlSerializer serializer = Xml.newSerializer();
+        try {
+            serializer.setOutput(fos, "UTF-8");
+            serializer.startDocument(null, Boolean.valueOf(true));
+
+            serializer.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
+
+            serializer.startTag(null, "root");
+
+            for(int j = 0 ; j < 3 ; j++)
+            {
+
+                serializer.startTag(null, "record");
+
+                serializer.text("A");
+
+                serializer.endTag(null, "record");
+            }
+            serializer.endDocument();
+
+            serializer.flush();
+
+            fos.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private String addFileTest(){
         String filename = "myfile";
         String fileContents = "Hello world!";
         FileOutputStream outputStream;
@@ -97,5 +171,11 @@ public class StoryCreatorActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return filename;
+
+        //so this works, what does that tell me. it means that this method of adding the file works fine.
+        //somehow I have to adapt this method of adding files to XML
+        //
     }
+
 }

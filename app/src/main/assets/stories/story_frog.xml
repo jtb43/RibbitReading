@@ -27,10 +27,15 @@
 				<image>waterfall-frog1.jpg</image>
 				<text>The frog says "Hello! My name is Lily. Who are you? Ribbit!"</text>
 				<audio>water.mp3</audio>
+				<audio>ribbit.mp3</audio>
+
 			</page>
 			<page>
 				<image>waterfall-frog1.jpg</image>
 				<text>"Oh hello NAME" says Lily. Isn't this waterfall nice? </text>
+				<audio>water.mp3</audio>
+				<audio>ribbit.mp3</audio>
+
 			</page>
 			<page type = "fork">
 				<text>Do you want to look for a rainbow or go swimming?</text>
@@ -41,6 +46,7 @@
 					<page>
 						<image>waterfall-frog-rainbow.jpg</image>
 						<text>"It's beautiful!" says Lily.</text>
+						<audio>water.mp3</audio>
 					</page>
 				</choice>
 				<choice>
@@ -48,6 +54,7 @@
 					<page>
 						<image>waterfall-frog-swimming.jpg</image>
 						<text>"The water feels so nice!" says Lily.</text>
+						<audio>water.mp3</audio>
 					</page>
 				</choice>
 			</page>
@@ -75,6 +82,7 @@
 					<page>
 						<image>waterfall-dog-ball.jpg</image>
 						<text>" Woof! Throw it again!" barks Spot.</text>
+						<audio>water.mp3</audio>
 					</page>
 				</choice>
 				<choice>
@@ -82,6 +90,7 @@
 					<page>
 						<image>waterfall-dog-rock.jpg</image>
 						<text>"This one's really shiny!" barks Spot.</text>
+						<audio>water.mp3</audio>
 					</page>
 				</choice>
 			</page>
