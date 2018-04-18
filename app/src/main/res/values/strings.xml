@@ -4,5 +4,6 @@
     <string name="main_message">Explore a world of stories!</string>
     <string name="title_activity_library">Library</string>
     <string name="title_activity_landing">LandingActivity</string>
+    <string name="title_activity_story_creator">StoryCreatorActivity</string>
 
 </resources>

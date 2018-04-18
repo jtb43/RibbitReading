@@ -73,7 +73,7 @@ public class LandingActivity extends AppCompatActivity {
             InputStream image_lookup = getAssets().open(ex);
             Drawable d = Drawable.createFromStream(image_lookup, null);
             cover.setImageDrawable(d);
-
+            cover.setBackgroundColor(getResources().getColor(R.color.yellow));
             cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

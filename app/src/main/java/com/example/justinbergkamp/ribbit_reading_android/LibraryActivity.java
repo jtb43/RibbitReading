@@ -71,6 +71,7 @@ public class LibraryActivity extends AppCompatActivity {
                             goToStory(file);
                         }
                     });
+                    ib.setBackgroundColor(getResources().getColor(R.color.yellow));
                     layout.addView(ib);
                     is.close();
                     image_lookup.close();
