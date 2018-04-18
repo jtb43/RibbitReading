@@ -16,6 +16,8 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.io.FileOutputStream;
+
 public class StoryCreatorActivity extends AppCompatActivity {
     String story_title;
     String story_description;
@@ -70,6 +72,28 @@ public class StoryCreatorActivity extends AppCompatActivity {
             // Output to console for testing
             StreamResult consoleResult = new StreamResult(System.out);
             transformer.transform(source, consoleResult);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void internal(String f){
+        String d = f+"_folder";
+        File directory = StoryCreatorActivity.this.getDir(d, MODE_PRIVATE);
+        File file = new File(directory, f);
+
+    }
+
+    public void test(){
+        String filename = "myfile";
+        String fileContents = "Hello world!";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, StoryCreatorActivity.this.MODE_PRIVATE);
+            outputStream.write(fileContents.getBytes());
+            outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
