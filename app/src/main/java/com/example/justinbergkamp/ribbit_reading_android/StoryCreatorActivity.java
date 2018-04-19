@@ -102,7 +102,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
     public void test(View view) {
         try {
             System.out.println("Justin - In the test function");
-            FileInputStream fis = StoryCreatorActivity.this.openFileInput(addFileTest());
+            FileInputStream fis = StoryCreatorActivity.this.openFileInput(addXMLTest());
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader bufferedReader = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();
@@ -119,8 +119,9 @@ public class StoryCreatorActivity extends AppCompatActivity {
 
     }
 
-    public void addXMLTest(){
-        String filename = "file.txt";
+    public String addXMLTest(){
+        //Alright so this actually works, but the serialization process might make it more of a pain to create and parse
+        String filename = "fakefile.txt";
 
         FileOutputStream fos = null;
         try {
@@ -136,17 +137,15 @@ public class StoryCreatorActivity extends AppCompatActivity {
 
             serializer.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
 
-            serializer.startTag(null, "root");
+            serializer.startTag(null, "story");
+            serializer.startTag(null, "title");
+            serializer.text("Title - Justin");
+            serializer.endTag(null, "title");
+            serializer.startTag(null, "description");
+            serializer.text("Descprip - Justin");
+            serializer.endTag(null, "description");
 
-            for(int j = 0 ; j < 3 ; j++)
-            {
 
-                serializer.startTag(null, "record");
-
-                serializer.text("A");
-
-                serializer.endTag(null, "record");
-            }
             serializer.endDocument();
 
             serializer.flush();
@@ -155,7 +154,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
         }catch (IOException e) {
             e.printStackTrace();
         }
-
+        return filename;
 
     }
 

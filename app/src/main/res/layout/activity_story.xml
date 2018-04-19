@@ -27,7 +27,7 @@
         android:background="#ffffff"
         android:fontFamily="casual"
         android:text="TextView"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@android:color/background_dark"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/story_background"
@@ -92,5 +92,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/star_big_off" />
+
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        app:lottie_fileName="trophy.json"/>
 
 </android.support.constraint.ConstraintLayout>

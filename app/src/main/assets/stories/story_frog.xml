@@ -32,7 +32,7 @@
 			</page>
 			<page>
 				<image>waterfall-frog1.jpg</image>
-				<text>"Oh hello NAME" says Lily. Isn't this waterfall nice? </text>
+				<text>"Oh hello NAME" says Lily. "Isn't this waterfall nice?" </text>
 				<audio>water.mp3</audio>
 				<audio>ribbit.mp3</audio>
 
